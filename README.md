@@ -1,36 +1,118 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ResumeAI — AI Resume Builder & Analyzer SaaS
 
-## Getting Started
+ResumeAI is a premium, full-featured SaaS platform designed to help candidates build professional resumes and optimize them for modern Applicant Tracking Systems (ATS) using advanced AI feedback.
 
-First, run the development server:
+## 🚀 Key Features
 
+### 1. 📊 Interactive Dashboard
+- **Analytics at a Glance:** Track total analyses, average ATS scores, and optimized versions generated.
+- **Recent Activity:** Quick view and delete controls for your recent resume analyses.
+- **Global Navigation:** Smooth drawer navigation sidebar on mobile, collapsible sticky sidebar on desktop.
+
+### 2. 📝 AI-Powered Resume Builder
+- **Multi-Step Wizard:** Step-by-step guidance covering:
+  1. *Personal Details:* Contact details, professional summary, and links.
+  2. *Work Experience:* Interactive list for adding/editing multiple job experiences.
+  3. *Education:* Section for adding academic credentials and degrees.
+  4. *Skills:* Tag-input system for technical and soft skills.
+- **Live Preview:** Visual desktop/mobile view of your resume formatted in a clean, professional style.
+- **Export to PDF:** Click-to-download PDF generated locally with **jsPDF**, using custom grid alignment, page numbers, and typographic scaling.
+
+### 3. 🔍 ATS Resume Analyzer
+- **Job Description Matcher:** Paste your resume and a target job description to get tailored compatibility feedback.
+- **ATS Score Gauge:** High-quality circular visual gauge representing your overall matching percentage.
+- **Insights Dashboard:**
+  - *Missing Keywords:* Essential terms to inject into your resume to pass automated screens.
+  - *Strengths & Weaknesses:* Detailed breakdowns of what your resume does well and where it lacks details.
+- **Side-by-Side Comparison:** Compare original sentences alongside AI-suggested rewrites for maximum optimization.
+
+### 4. 🔒 Authentication & Security
+- **Firebase Auth Integration:** Secure authentication supporting:
+  - Email/Password Signup & Login with client-side validation.
+  - Google Sign-In.
+- **Dynamic Fallback (Mock Mode):** If Firebase keys are not provided in environment variables, the system gracefully runs in a secure Mock developer mode so testing can be done without setting up infrastructure.
+
+---
+
+## 🛠️ Technology Stack
+
+- **Framework:** [Next.js 14](https://nextjs.org/) (App Router & React Server Components)
+- **Library:** React 18 & TypeScript
+- **Styling:** Tailwind CSS (Custom glassmorphism & dark gradients)
+- **Forms & Validation:** React Hook Form + Zod Schema Validation
+- **Database / Auth:** Firebase Authentication
+- **Export Engine:** [jsPDF](https://github.com/parallax/jsPDF)
+- **Charts:** [Recharts](https://recharts.org/) (Responsive circular gauges)
+- **Animations:** [Framer Motion](https://www.framer.com/motion/)
+- **Icons:** Lucide React
+
+---
+
+## ⚙️ Getting Started & Installation
+
+### 1. Clone the Repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/ahmed000248/Ai-Resume-Builder.git
+cd Ai-Resume-Builder
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install Dependencies
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Set Up Environment Variables
+Create a `.env.local` file in the root directory. You can copy the template from `.env.local.example`:
+```bash
+cp .env.local.example .env.local
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Fill in your Firebase credentials:
+```env
+NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_auth_domain
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
+```
+> **Note:** If these are left blank, ResumeAI runs in a local **Mock Mode** using localStorage to mock authentication, allowing you to test out all dashboards instantly.
 
-## Learn More
+### 4. Run Development Server
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) to view the application.
 
-To learn more about Next.js, take a look at the following resources:
+### 5. Build for Production
+```bash
+npm run build
+npm run start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📂 Project Structure
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```text
+├── app/                  # Next.js App Router (Layouts & Pages)
+│   ├── dashboard/        # Dashboard layout, builder, analyzer, and history views
+│   ├── login/            # Sign In view
+│   ├── signup/           # Sign Up view
+│   └── globals.css       # Custom global glassmorphism & scrollbar styles
+├── components/           # Reusable UI & Layout Components
+│   ├── analysis/         # Score gauges, keyword badges, and side-by-side rewrites
+│   ├── auth/             # Login/Signup Form handling
+│   ├── dashboard/        # Stats cards and recent activity tables
+│   ├── layout/           # Sticky sidebar and navigation menus
+│   ├── resume/           # Step progression, resume forms, and interactive PDF preview
+│   └── ui/               # Modular elements (Buttons, Inputs, Cards, Skeletons)
+├── context/              # React Context Providers (AuthContext)
+├── hooks/                # Custom hooks (e.g., useProtectedRoute)
+├── lib/                  # Helper utilities, API clients, PDF builders, and Firebase setups
+│   ├── api/              # Simulated API endpoints (analyze, generate, history)
+│   ├── firebase/         # Firebase SDK configuration and wrapper functions
+│   ├── pdf/              # jsPDF custom document builder template
+│   └── utils.ts          # Styling and date formatting helpers
+└── types/                # TypeScript interfaces and type definitions
+```
