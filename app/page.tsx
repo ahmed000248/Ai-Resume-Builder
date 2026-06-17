@@ -20,7 +20,7 @@ import {
 
 export default function LandingPage() {
   const containerVariants = {
-    hidden: { opacity: 0 },
+    hidden: { opacity: 1 },
     visible: {
       opacity: 1,
       transition: {
@@ -30,7 +30,7 @@ export default function LandingPage() {
   } as const;
 
   const itemVariants = {
-    hidden: { y: 25, opacity: 0 },
+    hidden: { y: 0, opacity: 1 },
     visible: {
       y: 0,
       opacity: 1,
